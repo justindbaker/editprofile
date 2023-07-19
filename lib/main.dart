@@ -1,4 +1,8 @@
-import 'package:editprofile/profile_detail_page.dart';
+import 'package:editprofile/edit_name_page.dart';
+import 'package:editprofile/edit_email_page.dart';
+import 'package:editprofile/edit_phone_page.dart';
+import 'package:editprofile/edit_bio_page.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -167,15 +171,55 @@ class _MyEditProfilePageState extends State<MyEditProfilePage> {
 
   void _navToProfileDetailEditPage(
       String sectionName, String initialValue) async {
-    final updatedValue = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileDetailPage(
-          sectionName: sectionName,
-          initialValue: initialValue,
-        ),
-      ),
-    );
+    dynamic updatedValue;
+    switch (sectionName) {
+      case 'Name':
+        updatedValue = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditNamePage(
+              sectionName: sectionName,
+              initialValue: initialValue,
+            ),
+          ),
+        );
+        break;
+      case 'Phone':
+        updatedValue = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditPhonePage(
+              sectionName: sectionName,
+              initialValue: initialValue,
+            ),
+          ),
+        );
+        break;
+      case 'Email':
+        updatedValue = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditEmailPage(
+              sectionName: sectionName,
+              initialValue: initialValue,
+            ),
+          ),
+        );
+        break;
+      case 'Tell us about yourself':
+        updatedValue = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditBioPage(
+              sectionName: sectionName,
+              initialValue: initialValue,
+            ),
+          ),
+        );
+        break;
+      default:
+        throw 'Invalid section name: $sectionName';
+    }
 
     if (updatedValue != null) {
       // Update the profileData with the edited value.
