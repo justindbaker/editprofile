@@ -30,6 +30,28 @@ class MyEditProfilePage extends StatefulWidget {
 }
 
 class _MyEditProfilePageState extends State<MyEditProfilePage> {
+  // Default profile data
+  final List<Map<String, dynamic>> profileData = [
+    {
+      'label': 'Name',
+      'value': 'Micah Smith',
+    },
+    {
+      'label': 'Phone',
+      'value': '(123) 456-7890',
+    },
+    {
+      'label': 'Email',
+      'value': 'micah@gmail.com',
+    },
+    {
+      'label': 'Tell us about yourself',
+      'value':
+          'Hi my name is Micah Smith. I am from Mesa but go to school in Salt Lake City. '
+              'I make this drive all the time and have plenty of experience.',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +115,46 @@ class _MyEditProfilePageState extends State<MyEditProfilePage> {
                   ),
                 ],
               ),
+              const SizedBox(height: 15),
+              for (var section in profileData) ...[
+                InkWell(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(section['label']),
+                          const Row(
+                            children: [
+                              Text(""),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              section['value'],
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const Row(
+                            children: [
+                              Icon(Icons.keyboard_arrow_right,
+                                  color: Colors.blue),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+              ],
             ],
           ),
         ),
