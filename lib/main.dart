@@ -1,3 +1,4 @@
+import 'package:editprofile/profile_detail_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -118,6 +119,8 @@ class _MyEditProfilePageState extends State<MyEditProfilePage> {
               const SizedBox(height: 15),
               for (var section in profileData) ...[
                 InkWell(
+                  onTap: () => _navToProfileDetailEditPage(
+                      section['label'], section['value']),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -160,5 +163,30 @@ class _MyEditProfilePageState extends State<MyEditProfilePage> {
         ),
       ),
     );
+  }
+
+  void _navToProfileDetailEditPage(
+      String sectionName, String initialValue) async {
+    final updatedValue = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileDetailPage(
+          sectionName: sectionName,
+          initialValue: initialValue,
+        ),
+      ),
+    );
+
+    if (updatedValue != null) {
+      // Update the profileData with the edited value.
+      setState(() {
+        for (var section in profileData) {
+          if (section['label'] == sectionName) {
+            section['value'] = updatedValue;
+            break;
+          }
+        }
+      });
+    }
   }
 }
